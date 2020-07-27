@@ -11,7 +11,12 @@ def index(request):
 
     if request.method == "POST":
 
-            search = forms(request.POST)
+            search = request.POST.get("search")
+
+            if not entry(request, search):
+                return searchResult()
+            else:
+                return entry(request, search)
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -31,3 +36,9 @@ def entry(request, name):
             "entry": entry,
             "name": name
         })
+
+def search(request):
+
+    return render(request, "encyclopedia/searchResult.html", {
+        "entries": util.list_entries()
+    })
