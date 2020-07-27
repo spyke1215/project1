@@ -4,9 +4,9 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("css/", views.css, name="css"),
-    path("django/", views.django, name="django"),
-    path("git/", views.git, name="git"),
-    path("html/", views.html, name="html"),
-    path("python/", views.python, name="python")
+    path("wiki/CSS/", views.css, name="css"),
+    path("wiki/Django/", views.django, name="django"),
+    path("wiki/Git/", views.git, name="git"),
+    path("wiki/HTML/", views.html, name="html"),
+    path("wiki/Python/", views.python, name="python")
 ]
