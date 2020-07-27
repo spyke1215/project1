@@ -12,33 +12,32 @@ def index(request):
     if request.method == "POST":
 
             search = request.POST.get("search")
+            entry = util.get_entry(search)
 
-            if not entry(request, search):
-                return searchResult()
+            if not entry:
+                return render(request, "encyclopedia/search.html", {
+                    "entries": util.list_entries()
+                })
             else:
-                return entry(request, search)
+                HttpResponseRedirect('entry')
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
 
-def entry(request, name):
+def entry(request, name, boolean):
 
     entry = util.get_entry(name)
 
     if not entry:
+
         return render(request, "encyclopedia/entry.html", {
             "entry": util.get_entry("notFound"),
             "name": name
         })
+
     else:
         return render(request, "encyclopedia/entry.html", {
             "entry": entry,
             "name": name
         })
-
-def search(request):
-
-    return render(request, "encyclopedia/searchResult.html", {
-        "entries": util.list_entries()
-    })
