@@ -18,8 +18,8 @@ def index(request):
                 return render(request, "encyclopedia/search.html", {
                     "entries": util.list_entries()
                 })
-            #else:
-                # TOFIX return entry(request, search)
+            else:
+                return redirect(f'/wiki/{search}')
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
