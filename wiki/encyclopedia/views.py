@@ -18,21 +18,21 @@ def index(request):
                 return render(request, "encyclopedia/search.html", {
                     "entries": util.list_entries()
                 })
-            else:
-                HttpResponseRedirect('entry')
+            #else:
+                # TOFIX return entry(request, search)
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
 
-def entry(request, name, boolean):
+def entry(request, name):
 
     entry = util.get_entry(name)
 
     if not entry:
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": util.get_entry("notFound"),
+            "error": "ERROR 404: Requested page was not found!",
             "name": name
         })
 
