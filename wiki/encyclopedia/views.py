@@ -3,6 +3,7 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from markdown2 import Markdown
+import re
 
 from . import util
 markdowner = Markdown()
@@ -13,9 +14,25 @@ def search(request):
     entry = util.get_entry(search)
 
     if not entry:
-        return render(request, "encyclopedia/search.html", {
-            "entries": util.list_entries()
-        })
+
+        if re.search("^py", search, re.IGNORECASE):
+
+            return render(request, "encyclopedia/search.html", {
+                "entry": "Python"
+            })
+
+        elif re.search("^dj", search, re.IGNORECASE):
+
+            return render(request, "encyclopedia/search.html", {
+                "entry": "Django"
+            })
+
+        elif re.search("^cs", search, re.IGNORECASE):
+
+            return render(request, "encyclopedia/search.html", {
+                "entry": "CSS"
+            })
+
     else:
         return redirect(f'/wiki/{search}')
 
