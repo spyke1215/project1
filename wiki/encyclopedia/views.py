@@ -3,10 +3,10 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from markdown2 import Markdown
+import os.path
 import re
 
 from . import util
-markdowner = Markdown()
 
 def search(request):
 
@@ -63,3 +63,32 @@ def entry(request, name):
             "entry": entry,
             "name": name
         })
+
+def create(request):
+
+    if request.method == "POST":
+        title = request.POST.get("title")
+        markdown = request.POST.get("markdown")
+        save_path = "entries"
+
+        for entry in util.list_entries():
+
+            if re.search(f"^{title}$",entry,re.IGNORECASE):
+                return render(request, "encyclopedia/entry.html", {
+                    "entry": "Error: Entry already exists",
+                    "name": "Error"
+                }) 
+
+        complete_title = os.path.join(save_path, f"{title}.md")  
+
+        entry = open(complete_title, "w")
+        entry.write(markdown)
+        entry.close()
+
+        return render(request, "encyclopedia/entry.html", {
+            "entry": util.get_entry(title),
+            "name": title
+        })
+
+    else:
+        return render(request, "encyclopedia/create.html")
