@@ -29,8 +29,9 @@ def entry(request, name):
 def create(request):
 
     if request.method == "POST":
-        title = request.POST.get == "title"
-        markdown = request.POST.get == "markdown"
+        title = request.POST.get("title")
+        markdown = request.POST.get("markdown")
+        save_path = "entries"
 
         for entry in util.list_entries():
 
@@ -40,17 +41,14 @@ def create(request):
                     "name": "Error"
                 }) 
 
-        save_path = "entries"
-
         complete_title = os.path.join(save_path, f"{title}.md")  
 
-        new_entry = open(complete_title, "w")
-        toFile = raw_input(markdown)
-        new_entry.write(toFile)
-        new_entry.close()
+        entry = open(complete_title, "w")
+        entry.write(markdown)
+        entry.close()
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": title,
+            "entry": util.get_entry(title),
             "name": title
         })
 
