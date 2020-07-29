@@ -8,6 +8,7 @@ import re
 
 from . import util
 
+# SEARCH
 def search(request):
 
     search = request.POST.get("search") # getting data on POST
@@ -39,7 +40,7 @@ def search(request):
     # if there is entry, redirect to the page
     else:
         return redirect(f'/wiki/{search}')
-
+# INDEX PAGE
 def index(request):
     
     # if POST go to search function
@@ -51,6 +52,7 @@ def index(request):
         "entries": util.list_entries()
     })
 
+# ENTRY PAGE
 def entry(request, name):
 
     # if post go to search function
@@ -73,6 +75,7 @@ def entry(request, name):
             "name": name
         })
 
+# EDIT PAGE
 def edit(request):
 
     # if POST go to create function
@@ -91,6 +94,7 @@ def edit(request):
             "markdown": markdown
         })
 
+# NEW PAGE
 def create(request):
 
     # if POST 
