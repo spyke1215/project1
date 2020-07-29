@@ -19,10 +19,12 @@ def search(request):
 
         for entry in util.list_entries():
 
-            result = re.search(rf"^{search}\w+",entry,re.IGNORECASE)
+            result = re.search(rf"^{search}\w+|^{search}$",entry,re.IGNORECASE)
 
             if not result:
                 continue
+            elif re.search(f"^{search}$",entry,re.IGNORECASE):
+                return redirect(f'/wiki/{result.group()}')
             else:
                 final = result.group()
         
