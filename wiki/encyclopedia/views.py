@@ -49,9 +49,9 @@ def entry(request, name):
     if request.method == "POST":
         return search(request)
 
-    entry = util.get_entry(name)
+    ent = util.get_entry(name)
 
-    if not entry:
+    if not ent:
 
         return render(request, "encyclopedia/entry.html", {
             "error": "ERROR 404: Requested page was not found!",
@@ -60,13 +60,28 @@ def entry(request, name):
 
     else:
         return render(request, "encyclopedia/entry.html", {
-            "entry": entry,
+            "entry": ent,
             "name": name
         })
 
 def edit (request):
 
-    return render(request, "encyclopedia/edit.html")
+    if request.method == "POST":
+
+        return render(request, "encyclopedia/entry.html", {
+            "entry": util.get_entry(ent),
+            "name": test
+        })
+
+    else:
+        
+        entry = open(f"entries/HTML.md", "r")
+        markdown = entry.read()
+
+        return render(request, "encyclopedia/edit.html", {
+            "title": "HTML",
+            "markdown": markdown
+        })
 
 def create(request):
 
