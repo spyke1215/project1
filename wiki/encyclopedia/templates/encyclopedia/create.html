@@ -5,15 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <form>
-    <label for="w3review">Review of W3Schools:</label>
+    <h1>Create New Page</h1>
 
-    <textarea id="w3review" name="w3review" rows="4" cols="50">
-        At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
-    </textarea>
+    <form method="POST">
+        <div>
+            <input type="text" name="title" placeholder="Enter Title">
+        </div>
 
-    <br><br>
+        <br>
+        
+        <div>
+            <textarea style="height:700px; width: 800px;" name="markdown" placeholder="Enter Markdown Content"></textarea>
+        </div>
 
-    <input type="submit" value="Submit">
+        <div>
+            <input type="submit" name="new" value="Submit">
+        </div>
     </form>
 {% endblock %}

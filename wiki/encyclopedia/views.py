@@ -2,7 +2,6 @@ from django.shortcuts import render
 from markdown2 import Markdown
 
 from . import util
-markdowner = Markdown()
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -26,4 +25,8 @@ def entry(request, name):
 
 def create(request):
 
-    return render(request, "encyclopedia/create.html")
+    if request.method == "POST":
+        return
+
+    else:
+        return render(request, "encyclopedia/create.html")
