@@ -8,7 +8,15 @@
     <h1>Search Results</h1>
 
     <ul>
-        <div><a href="wiki/{{ entry }}">{{ entry }}</a></div>
+        {% if not entries %}
+
+        <div><h4>The page does not exist<h4></div>
+
+        {% else %}
+
+        <div><a href="wiki/{{ entries }}">{{ entries }}</a></div>
+
+        {% endif %}
     </ul>
 
 {% endblock %}

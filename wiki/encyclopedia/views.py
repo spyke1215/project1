@@ -11,27 +11,24 @@ markdowner = Markdown()
 def search(request):
 
     search = request.POST.get("search")
-    entry = util.get_entry(search)
+    test = util.get_entry(search)
+    
+    if not test:
 
-    if not entry:
+        final = None
 
-        if re.search("^py", search, re.IGNORECASE):
+        for entry in util.list_entries():
 
-            return render(request, "encyclopedia/search.html", {
-                "entry": "Python"
-            })
+            result = re.search(rf"^{search}\w+",entry,re.IGNORECASE)
 
-        elif re.search("^dj", search, re.IGNORECASE):
-
-            return render(request, "encyclopedia/search.html", {
-                "entry": "Django"
-            })
-
-        elif re.search("^cs", search, re.IGNORECASE):
-
-            return render(request, "encyclopedia/search.html", {
-                "entry": "CSS"
-            })
+            if not result:
+                continue
+            else:
+                final = result.group()
+        
+        return render(request, "encyclopedia/search.html", {
+            "entries": final
+        })
 
     else:
         return redirect(f'/wiki/{search}')
