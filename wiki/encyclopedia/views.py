@@ -75,8 +75,8 @@ def create(request):
 
             if re.search(f"^{title}$",entry,re.IGNORECASE):
                 return render(request, "encyclopedia/entry.html", {
-                    "entry": "Error: Entry already exists",
-                    "name": "Error"
+                    "error": "Error: Entry already exists",
+                    "name": title
                 }) 
 
         complete_title = os.path.join(save_path, f"{title}.md")  
