@@ -64,6 +64,10 @@ def entry(request, name):
             "name": name
         })
 
+def edit (request):
+
+    return render(request, "encyclopedia/edit.html")
+
 def create(request):
 
     if request.method == "POST":

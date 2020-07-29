@@ -1,27 +1,27 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Edit Page
+    Create Page
 {% endblock %}
 
 {% block body %}
-    <h1>Create New Page</h1>
+    <h1>Edit Page</h1>
 
     <form method="POST">
         {% csrf_token %}
 
         <div>
-            <input type="text" name="title" placeholder="Enter Title">
+            <input type="text" name="title" value="{{ title }}">
         </div>
 
         <br>
         
         <div>
-            <textarea name="markdown" placeholder="Enter Markdown Content"></textarea>
+            <textarea name="markdown" value="{{ markdown }}"></textarea>
         </div>
 
         <div>
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
 {% endblock %}
