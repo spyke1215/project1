@@ -8,6 +8,8 @@
     <h1>Create New Page</h1>
 
     <form method="POST">
+        {% csrf_token %}
+
         <div>
             <input type="text" name="title" placeholder="Enter Title">
         </div>
@@ -19,7 +21,7 @@
         </div>
 
         <div>
-            <input type="submit" name="new" value="Submit">
+            <input type="submit" value="Submit">
         </div>
     </form>
 {% endblock %}
