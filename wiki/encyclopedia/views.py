@@ -80,9 +80,9 @@ def entry(request, name):
 
         # global variable for edit
         global global_entry 
-        global_entry  = name
+        global_entry = name
         
-        entry = open(f"entries/{name}.md", "r") # dosen't work
+        entry = open(f"entries/{name}.md", "r")
         markdown = entry.read()
         entry.close()
 
@@ -90,7 +90,6 @@ def entry(request, name):
             "entry": markdown2.markdown(markdown),
             "name": name,
             "random": random.choice(util.list_entries())
-
         })
         
 # EDIT PAGE
