@@ -7,7 +7,6 @@ import random
 import os.path
 import re
 
-
 from . import util
 
 global test
@@ -16,10 +15,10 @@ global test
 def search(request):
 
     search = request.POST.get("search") # getting data on POST
-    test = util.get_entry(search) # checking if the is a entry already
+    check = util.get_entry(search) # checking if the is a entry already
     
     # if theres no entry
-    if not test:
+    if not check:
 
         final = None
 
