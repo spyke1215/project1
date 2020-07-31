@@ -2,12 +2,8 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-<<<<<<< HEAD
 from markdown2 import Markdown
 import random
-=======
-import markdown2
->>>>>>> markdown
 import os.path
 import re
 
