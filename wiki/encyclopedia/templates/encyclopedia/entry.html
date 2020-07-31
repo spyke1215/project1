@@ -5,10 +5,14 @@
 {% endblock %}
 
 {% block edit %}
-<a href="{% url 'edit' %}">Edit page</a>
+    <a href="{% url 'edit' %}">Edit page</a>
 {% endblock %}
 
 {% block body %}
-    {{ entry }}
+    {% autoescape off %}
+        {{ entry }}
+    {% endautoescape %}
+
     <h3>{{ error }}</h3>
+    
 {% endblock %}

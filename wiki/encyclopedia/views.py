@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from markdown2 import Markdown
+import markdown2
 import os.path
 import re
 
@@ -70,10 +70,16 @@ def entry(request, name):
         })
 
     else: # if entry has a value
+        
+        entry = open(f"entries/{name}.md", "r") # dosen't work
+        markdown = entry.read()
+        entry.close()
+
         return render(request, "encyclopedia/entry.html", { # show the entry to user
-            "entry": entry, 
+            "entry": markdown2.markdown(markdown),
             "name": name
         })
+        
 
 # EDIT PAGE
 def edit(request):
