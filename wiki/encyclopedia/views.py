@@ -37,7 +37,8 @@ def search(request):
         
         #after the loop redirect to search.html
         return render(request, "encyclopedia/search.html", {
-            "entries": final
+            "entries": final,
+            "random": random.choice(util.list_entries())
         })
 
     # if there is entry, redirect to the page
@@ -87,7 +88,9 @@ def entry(request, name):
 
         return render(request, "encyclopedia/entry.html", { # show the entry to user
             "entry": markdown2.markdown(markdown),
-            "name": name
+            "name": name,
+            "random": random.choice(util.list_entries())
+
         })
         
 # EDIT PAGE

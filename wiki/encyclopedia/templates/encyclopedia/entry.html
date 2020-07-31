@@ -9,9 +9,8 @@
 {% endblock %}
 
 {% block body %}
-    {% autoescape off %}
-        {{ entry }}
-    {% endautoescape %}
+
+    {{ entry|safe }}
 
     <h3>{{ error }}</h3>
     
