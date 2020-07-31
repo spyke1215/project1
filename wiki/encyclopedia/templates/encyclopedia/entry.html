@@ -4,10 +4,11 @@
     {{ name }}
 {% endblock %}
 
+{% block edit %}
+<a href="{% url 'edit' %}">Edit page</a>
+{% endblock %}
+
 {% block body %}
     {{ entry }}
     <h3>{{ error }}</h3>
-    <form method="POST" action="{% url 'edit' %}">
-        <a href="{% url 'edit' %}" class="btn btn-primary">Edit page</a>
-    </form>
 {% endblock %}
