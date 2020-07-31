@@ -3,8 +3,10 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from markdown2 import Markdown
+import random
 import os.path
 import re
+
 
 from . import util
 
@@ -40,6 +42,7 @@ def search(request):
     # if there is entry, redirect to the page
     else:
         return redirect(f'/wiki/{search}')
+
 # INDEX PAGE
 def index(request):
     
@@ -49,7 +52,8 @@ def index(request):
 
     # if GET render index.html
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": util.list_entries(),
+        "random": random.choice(util.list_entries())
     })
 
 # ENTRY PAGE
@@ -66,13 +70,15 @@ def entry(request, name):
 
         return render(request, "encyclopedia/entry.html", { # return an error
             "error": "ERROR 404: Requested page was not found!",
-            "name": name
+            "name": name,
+            "random": random.choice(util.list_entries())
         })
 
     else: # if entry has a value
         return render(request, "encyclopedia/entry.html", { # show the entry to user
             "entry": entry, 
-            "name": name
+            "name": name,
+            "random": random.choice(util.list_entries())
         })
 
 # EDIT PAGE
@@ -91,7 +97,8 @@ def edit(request):
 
         return render(request, "encyclopedia/edit.html", { # render the data to edit
             "title": "HTML",
-            "markdown": markdown
+            "markdown": markdown,
+            "random": random.choice(util.list_entries())
         })
 
 # NEW PAGE
@@ -111,7 +118,8 @@ def create(request):
             if re.search(f"^{title}$",entry,re.IGNORECASE): # if title has already exist
                 return render(request, "encyclopedia/entry.html", { # return an error
                     "error": "Error: Entry already exists",
-                    "name": title
+                    "name": title,
+                    "random": random.choice(util.list_entries())
                 }) 
 
         complete_title = os.path.join(save_path, f"{title}.md") # combine the path and the title
@@ -124,4 +132,6 @@ def create(request):
 
     # if GET render create.html
     else:
-        return render(request, "encyclopedia/create.html")
+        return render(request, "encyclopedia/create.html", {
+            "random": random.choice(util.list_entries())
+        })
