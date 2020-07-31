@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
+
     <h1>Edit Page - {{ title }}</h1>
 
     <form method="POST">
+
         {% csrf_token %}
         <div>
             <textarea name="markdown">{{ markdown }}</textarea>

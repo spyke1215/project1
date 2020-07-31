@@ -97,23 +97,22 @@ def edit(request):
     # if POST go to create function
     if request.method == "POST":
 
-        title = request.POST.get("title") # getting title entered by the user
         markdown = request.POST.get("markdown") # getting markdown entered by the user
 
         save_path = "entries" # saving the path for entries
 
-        complete_title = os.path.join(save_path, f"{title}.md") # combine the path and the title
+        complete_title = os.path.join(save_path, f"{global_entry}.md") # combine the path and the title
 
         entry = open(complete_title, "w") # open the file
         entry.write(markdown) # write in the file
         entry.close() # close file
 
-        return redirect(f'/wiki/{title}') # redirect to entry to show the user
+        return redirect(f'/wiki/{global_entry}') # redirect to entry to show the user
 
     # if GET open edit.html
     else:
 
-        entry = open(f"entries/{global_entry }.md", "r") # dosen't work
+        entry = open(f"entries/{global_entry}.md", "r") # dosen't work
         markdown = entry.read()
         entry.close()
 
