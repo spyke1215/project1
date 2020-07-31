@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from markdown2 import Markdown
+import markdown2
 import random
 import os.path
 import re
