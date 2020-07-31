@@ -25,6 +25,10 @@
                 <div>
                    <a href="/wiki/{{ random }}"> Random Page</a>
                 </div>
+                <div>
+                {% block edit %}
+                {% endblock %}
+                </div>
                 {% block nav %}
                 {% endblock %}
             </div>
