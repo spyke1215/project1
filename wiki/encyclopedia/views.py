@@ -77,6 +77,10 @@ def entry(request, name):
         })
 
     else: # if entry has a value
+
+        # global variable for edit
+        global global_entry 
+        global_entry  = name
         
         entry = open(f"entries/{name}.md", "r") # dosen't work
         markdown = entry.read()
@@ -108,12 +112,13 @@ def edit(request):
 
     # if GET open edit.html
     else:
-        entry = open(f"entries/{test}.md", "r") # dosen't work
+
+        entry = open(f"entries/{global_entry }.md", "r") # dosen't work
         markdown = entry.read()
         entry.close()
 
         return render(request, "encyclopedia/edit.html", { # render the data to edit
-            "title": "HTML",
+            "title": global_entry,
             "markdown": markdown,
             "random": random.choice(util.list_entries())
         })
