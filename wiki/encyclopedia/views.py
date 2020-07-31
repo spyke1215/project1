@@ -8,6 +8,8 @@ import re
 
 from . import util
 
+global test
+
 # SEARCH
 def search(request):
 
@@ -61,7 +63,7 @@ def entry(request, name):
 
     # checking if entry is in the list of entries
     entry = util.get_entry(name)
-
+    
     if not entry: #if entry is None 
 
         return render(request, "encyclopedia/entry.html", { # return an error
@@ -70,6 +72,10 @@ def entry(request, name):
         })
 
     else: # if entry has a value
+
+        global test 
+        test = name
+
         return render(request, "encyclopedia/entry.html", { # show the entry to user
             "entry": entry, 
             "name": name
@@ -81,16 +87,27 @@ def edit(request):
     # if POST go to create function
     if request.method == "POST":
 
-        return create(request)
+        title = request.POST.get("title") # getting title entered by the user
+        markdown = request.POST.get("markdown") # getting markdown entered by the user
+
+        save_path = "entries" # saving the path for entries
+
+        complete_title = os.path.join(save_path, f"{title}.md") # combine the path and the title
+
+        entry = open(complete_title, "w") # open the file
+        entry.write(markdown) # write in the file
+        entry.close() # close file
+
+        return redirect(f'/wiki/{title}') # redirect to entry to show the user
 
     # if GET open edit.html
     else:
-        
-        entry = open(f"entries/HTML.md", "r") # dosen't work
+        entry = open(f"entries/{test}.md", "r") # dosen't work
         markdown = entry.read()
+        entry.close()
 
         return render(request, "encyclopedia/edit.html", { # render the data to edit
-            "title": "HTML",
+            "title": test,
             "markdown": markdown
         })
 
